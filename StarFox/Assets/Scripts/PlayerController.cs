@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour 
 {
+    public GameController controller;   // Reference to Gamecontroller object in this scene   
     Rigidbody rb;                       // Allow physics actions to be applied to player
     public GameObject bullet;           // Reference to bullet prefab player will fire
 
