@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     public GameController controller;   // Reference to Gamecontroller object in this scene   
     Rigidbody rb;                       // Allow physics actions to be applied to player
     public GameObject bullet;           // Reference to bullet prefab player will fire
+    AudioSource audioSource;            // Sound to play on collisions
 
     public float flySpeed;              // Controls magnitude of force applied to player in beginning
     public float rollSpeed;             // Speed to complete aileron loop
@@ -14,6 +15,8 @@ public class PlayerController : MonoBehaviour
 
 	void Start () 
     {
+        audioSource = GetComponent<AudioSource>();
+
         // Apply initial force to propel GameObject forward continuously
         rb = GetComponent<Rigidbody>();
         rb.AddForce(Vector3.forward * flySpeed);
@@ -73,5 +76,12 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(Vector3.right, ForceMode.Impulse);
         }
+    }
+
+    // When player GameObject collides with game environment, they take damage
+    void OnCollisionEnter()
+    {
+        audioSource.Play();
+        controller.RemoveLife();
     }
 }
